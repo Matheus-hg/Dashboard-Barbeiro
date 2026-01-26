@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {% load static %}
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard da Barbearia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%); /* Gradiente sutil branco */
+            color: #000000; /* Preto */
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #000000 0%, #333333 100%); /* Gradiente preto */
+            color: #ffffff; /* Branco */
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .header h1 {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3em;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: fadeIn 1s ease-in;
+        }
+        .nav {
+            margin-top: 15px;
+        }
+        .nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+        .nav a:hover {
+            color: #cccccc;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            animation: fadeIn 1.5s ease-in;
+        }
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .stat-card {
+            background-color: #ffffff; /* Branco */
+            border: 2px solid #000000; /* Preto */
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            transition: left 0.5s;
+        }
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+        .stat-card h3 {
+            margin: 0 0 15px 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .stat-card p {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 0;
+        }
+        .section {
+            background-color: #ffffff; /* Branco */
+            border: 2px solid #000000; /* Preto */
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            animation: fadeIn 2s ease-in;
+        }
+        .section h2 {
+            margin-top: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2em;
+            border-bottom: 3px solid #000000; /* Preto */
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .section h2::before {
+            content: '';
+            width: 5px;
+            height: 30px;
+            background-color: #000000;
+            margin-right: 15px;
+        }
+        .list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .list-item {
+            background-color: #fafafa; /* Branco off */
+            border: 1px solid #cccccc;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .list-item:hover {
+            background-color: #f0f0f0;
+            transform: translateX(5px);
+        }
+        .list-item::before {
+            content: '\f0c4'; /* Ícone de papel (Font Awesome) */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 15px;
+            color: #000000;
+        }
+        .footer {
+            background: linear-gradient(135deg, #000000 0%, #333333 100%); /* Gradiente preto */
+            color: #ffffff; /* Branco */
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+        }
+        .footer p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            .container {
+                padding: 0 10px;
+                gap: 20px;
+            }
+            .section {
+                padding: 20px;
+            }
+            .section h2 {
+                font-size: 1.8em;
+            }
+            .stat-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Barbearia Elegante</h1>
+        <nav class="nav">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#agendamentos">Agendamentos</a>
+            <a href="#servicos">Serviços</a>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <!-- Seção de Estatísticas -->
+        <section class="stats-container">
+            <div class="stat-card">
+                <h3><i class="fas fa-users"></i> Clientes Hoje</h3>
+                <p>5</p>
+            </div>
+            <div class="stat-card">
+                <h3><i class="fas fa-dollar-sign"></i> Receita Hoje</h3>
+                <p>R$ 250,00</p>
+            </div>
+            <div class="stat-card">
+                <h3><i class="fas fa-cut"></i> Serviços Realizados</h3>
+                <p>3</p>
+            </div>
+        </section>
+        
+        <!-- Seção de Agendamentos -->
+        <section class="section" id="agendamentos">
+            <h2><i class="fas fa-calendar-alt"></i> Agendamentos do Dia</h2>
+            <ul class="list">
+                <li class="list-item"><strong>João Silva</strong> - 10:00 - Corte de Cabelo</li>
+                <li class="list-item"><strong>Maria Oliveira</strong> - 11:30 - Barba</li>
+                <li class="list-item"><strong>Pedro Santos</strong> - 14:00 - Corte + Barba</li>
+            </ul>
+        </section>
+        
+        <!-- Seção de Serviços -->
+        <section class="section" id="servicos">
+            <h2><i class="fas fa-tools"></i> Serviços Oferecidos</h2>
+            <ul class="list">
+                <li class="list-item">Corte de Cabelo</li>
+                <li class="list-item">Barba</li>
+                <li class="list-item">Sobrancelha</li>
+                <li class="list-item">Massagem Capilar</li>
+            </ul>
+        </section>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; 2026 Barbearia Elegante. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
