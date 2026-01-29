@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - Barbearia Elegante</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%); /* Gradiente sutil branco */
+            color: #000000; /* Preto */
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #000000 0%, #333333 100%); /* Gradiente preto */
+            color: #ffffff; /* Branco */
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .header h1 {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3em;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: fadeIn 1s ease-in;
+        }
+        .nav {
+            margin-top: 15px;
+        }
+        .nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+        .nav a:hover {
+            color: #cccccc;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: fadeIn 1.5s ease-in;
+        }
+        .section {
+            background-color: #ffffff; /* Branco */
+            border: 2px solid #000000; /* Preto */
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            animation: fadeIn 2s ease-in;
+        }
+        .section h2 {
+            margin-top: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2em;
+            border-bottom: 3px solid #000000; /* Preto */
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .section h2::before {
+            content: '';
+            width: 5px;
+            height: 30px;
+            background-color: #000000;
+            margin-right: 15px;
+        }
+        .list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .list-item {
+            background-color: #fafafa; /* Branco off */
+            border: 1px solid #cccccc;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .list-item:hover {
+            background-color: #f0f0f0;
+            transform: translateX(5px);
+        }
+        .list-item::before {
+            content: '\f007'; /* Ícone de usuário (Font Awesome) */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 15px;
+            color: #000000;
+        }
+        .footer {
+            background: linear-gradient(135deg, #000000 0%, #333333 100%); /* Gradiente preto */
+            color: #ffffff; /* Branco */
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+        }
+        .footer p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            .container {
+                padding: 0 10px;
+            }
+            .section {
+                padding: 20px;
+            }
+            .section h2 {
+                font-size: 1.8em;
+            }
+            .nav a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Clientes</h1>
+        <nav class="nav">
+            <a href="/">Dashboard</a>
+            <a href="/servicos/">Serviços</a>
+            <a href="/agendamentos/">Agendamentos</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="section">
+            <h2><i class="fas fa-users"></i> Lista de Clientes</h2>
+            <ul class="list">
+                {% for cliente in clientes %}
+                    <li class="list-item">
+                        <strong>{{ cliente.nome }}</strong> - {{ cliente.telefone }} - {{ cliente.email }}
+                    </li>
+                {% empty %}
+                    <li class="list-item">Nenhum cliente cadastrado.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Barbearia Elegante. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
