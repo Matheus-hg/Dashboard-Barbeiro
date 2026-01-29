@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
 ROOT_URLCONF = 'dashboard_barbeiro.urls'
@@ -121,6 +122,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/clientes/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/clientes/login/'

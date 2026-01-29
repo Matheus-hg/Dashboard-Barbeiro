@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard da Barbearia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -152,6 +155,30 @@
             margin-right: 15px;
             color: #000000;
         }
+        .nav {
+            display: flex;
+            justify-content: center; /* centraliza os links */
+            gap: 15px;
+            position: relative;
+        }
+
+        .btn-logout {
+            margin-left: auto; /* empurra o botão para a direita */
+            background: #dc3545; /* vermelho */
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #c82333; /* vermelho mais escuro */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
         .footer {
             background: linear-gradient(135deg, #000000 0%, #333333 100%); /* Gradiente preto */
             color: #ffffff; /* Branco */
@@ -164,6 +191,31 @@
             margin: 0;
             font-size: 1.1em;
         }
+
+        .alert {
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeInDown 0.5s forwards;
+        }
+
+        @keyframes fadeInDown {
+            to {
+            opacity: 1;
+            transform: translateY(0);
+            }
+        }
+
+        .fade-out {
+            animation: fadeOutUp 0.5s forwards;
+        }
+
+        @keyframes fadeOutUp {
+            to {
+            opacity: 0;
+            transform: translateY(-10px);
+            }
+        }
+
         /* Animações */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -191,12 +243,32 @@
     </style>
 </head>
 <body>
-    <header class="header">
+    <header class="header"> 
+    {% if messages %}
+    {% for message in messages|slice:":1" %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3 mx-4" role="alert">
+        <i class="bi bi-check-circle"></i> {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+        </div>
+    {% endfor %}
+    {% endif %}
+        <script>
+            setTimeout(() => {
+                document.querySelectorAll('.alert').forEach(el => {
+                    el.classList.add('fade-out');
+                    setTimeout(() => el.remove(), 500); // remove do DOM após animação
+                });
+              }, 4000); // desaparece após 4 segundos
+        </script>
         <h1>Barbearia Elegante</h1>
         <nav class="nav">
-            <a href="#dashboard">Dashboard</a>
-            <a href="#agendamentos">Agendamentos</a>
-            <a href="#servicos">Serviços</a>
+            <a href="/">Dashboard</a>
+            <a href="/clientes/">Clientes</a>
+            <a href="/servicos/">Serviços</a>
+            <a href="/agendamentos/">Agendamentos</a>
+            <a href="/clientes/logout/" class="btn-logout"> 
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </a>
         </nav>
     </header>
     
