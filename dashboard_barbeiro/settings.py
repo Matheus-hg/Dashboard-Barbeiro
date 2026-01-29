@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'apps.clientes',
     'apps.agendamentos',
     'apps.servicos',
+    'dashboard',
 ]
 
 MIDDLEWARE = [

@@ -9,6 +9,9 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    path('', include('dashboard.urls')), # página inicial
+    path('clientes/', include('apps.clientes.urls')),  # rota para a home do app clientes
+    path('servicos/', include('apps.servicos.urls')),
+    path('agendamentos/', include('apps.agendamentos.urls')),
     path('admin/', admin.site.urls),          # rota para o painel admin
-    path('', include('apps.clientes.urls')),  # rota para a home do app clientes
 ]
