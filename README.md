@@ -34,6 +34,15 @@ Font Awesome (ícones)
 
 ---
 
+## 📸 Prints da aplicação
+
+![Login](screenshot/login.png)
+![Dashboard](screenshot/dashboard.png)
+![Cliente](screenshot/clientes.png)
+![Serviços](screenshot/servicos.png)
+![Agendamento](screenshot/agendamentos.png)
+
+---
 1. Clone o repositório:
    ```bash
    git clone https://github.com/seuusuario/dashboard-barbeiro.git
