@@ -14,6 +14,6 @@ urlpatterns = [
     path('clientes/', include('apps.clientes.urls')),  # rota para o app clientes
     path('servicos/', include('apps.servicos.urls')),
     path('agendamentos/', include('apps.agendamentos.urls')),
-    path('logout/', custom_logout, name='logout'),  # logout centralizado
+    path('logout/', custom_logout, name='logout'),# logout centralizado
     path('admin/', admin.site.urls),
 ]
