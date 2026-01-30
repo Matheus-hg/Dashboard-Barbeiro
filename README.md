@@ -4,9 +4,6 @@
 ![Django](https://img.shields.io/badge/Django-6.0-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-Sistema de gerenciamento para barbearia, desenvolvido em Django.  
-O objetivo é centralizar o controle de clientes, serviços e agendamentos em um painel simples e elegante.
-
 
 Sistema de gerenciamento para barbearia, desenvolvido em **Django**.  
 O objetivo é centralizar o controle de clientes, serviços e agendamentos em um painel simples e elegante.
