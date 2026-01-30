@@ -60,6 +60,28 @@ Font Awesome (ícones)
 ![Agendamento](screenshot/agendamentos.png)
 
 ---
+
+## 🗺️ Roadmap
+
+### ✅ Concluído
+- Cadastro e listagem de clientes
+- Login e logout com mensagens de sucesso
+- Interface estilizada com HTML + CSS
+- Estrutura inicial do projeto (apps, models, forms, views, urls, templates)
+- Documentação inicial no README
+
+### 🚧 Em andamento
+- CRUD completo de clientes (editar e excluir)
+- Base template (`base.html`) com menu global
+- Estilização avançada com Bootstrap/Tailwind
+
+### 🔮 Futuro
+- Módulo de serviços (cadastro e listagem)
+- Módulo de agendamentos (agenda de horários)
+- Dashboard com estatísticas (quantidade de clientes, serviços mais usados etc.)
+- Deploy em plataforma (Render/Railway/Heroku)
+- Testes automatizados
+---
 1. Clone o repositório:
    ```bash
    git clone https://github.com/seuusuario/dashboard-barbeiro.git
