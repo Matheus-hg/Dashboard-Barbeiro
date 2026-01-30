@@ -28,6 +28,7 @@ O objetivo é centralizar o controle de clientes, serviços e agendamentos em um
 ---
 
 🛠️ Tecnologias utilizadas
+
 Python 3.14
 
 Django 6.0
