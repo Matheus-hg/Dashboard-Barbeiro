@@ -82,7 +82,7 @@ Font Awesome (ícones)
 ---
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seuusuario/dashboard-barbeiro.git
+   git clone https://github.com/matheus-hg/dashboard-barbeiro.git
    cd dashboard-barbeiro
 
 2. Crie e ative o ambiente virtual:
