@@ -25,23 +25,37 @@ def lista_clientes(request):
         'form': form,
     })
 
+
 def editar_cliente(request, id):
     cliente = get_object_or_404(Cliente, id=id)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ClienteForm(request.POST, instance=cliente)
         if form.is_valid():
             form.save()
+            messages.success(request, f"Cliente {cliente.nome} atualizado com sucesso!")
             return redirect('lista_clientes')
-        else:
-            form = ClienteForm(instance=cliente)
-        return render(request, 'cliente/editar.html', {'form': form})
+    else:
+        form = ClienteForm(instance=cliente)
+
+    # Sempre retorna um HttpResponse
+    return render(request, 'clientes/editar.html', {
+        'form': form,
+        'cliente': cliente
+    })
+
 
 def excluir_cliente(request, id):
     cliente = get_object_or_404(Cliente, id=id)
     if request.method == 'POST':
         cliente.delete()
+        messages.success(request, f"Cliente {cliente.nome} excluído com sucesso!")
         return redirect('lista_clientes')
-    return render(request, 'clientes/confirmar_exclusao.html', {'cliente': cliente})
+
+    # Página de confirmação
+    return render(request, 'clientes/confirmar_exclusao.html', {
+        'cliente': cliente
+    })
+
 
 class CustomLoginView(LoginView):
     template_name = 'login.html'
@@ -55,4 +69,4 @@ class CustomLoginView(LoginView):
 def custom_logout(request):
     logout(request)
     messages.success(request, 'Logout realizado com sucesso!')
-    return redirect('/clientes/login/')
+    return redirect('login')  # usa o nome da rota de login
