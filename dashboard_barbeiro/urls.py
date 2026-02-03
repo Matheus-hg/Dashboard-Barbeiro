@@ -10,10 +10,10 @@ from django.urls import path, include
 from apps.clientes.views import custom_logout
 
 urlpatterns = [
-    path('', include('dashboard.urls')),  # página inicial
-    path('clientes/', include('apps.clientes.urls')),  # rota para o app clientes
-    path('servicos/', include('apps.servicos.urls')),
-    path('agendamentos/', include('apps.agendamentos.urls')),
-    path('logout/', custom_logout, name='logout'),# logout centralizado
+    path('', include('dashboard.urls')),  # página inicial -> index.html
+    path('clientes/', include('apps.clientes.urls')),  # rotas do app clientes
+    path('servicos/', include('apps.servicos.urls')),  # rotas do app serviços
+    path('agendamentos/', include('apps.agendamentos.urls')),  # rotas do app agendamentos
+    path('logout/', custom_logout, name='logout'),  # logout centralizado
     path('admin/', admin.site.urls),
 ]

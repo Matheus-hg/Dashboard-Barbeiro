@@ -1,193 +1,59 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes - Barbearia Elegante</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-            color: #000000;
-            margin: 0;
-            padding: 0;
-            line-height: 1.7;
-        }
-        .header {
-            background: linear-gradient(135deg, #000000 0%, #333333 100%);
-            color: #ffffff;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        .header h1 {
-            margin: 0;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3em;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-        .nav {
-            margin-top: 15px;
-        }
-        .nav a {
-            color: #ffffff;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: 400;
-            transition: color 0.3s;
-        }
-        .nav a:hover {
-            color: #cccccc;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        .section {
-            background-color: #ffffff;
-            border: 2px solid #000000;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            margin-bottom: 40px;
-        }
-        .section h2 {
-            margin-top: 0;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2em;
-            border-bottom: 3px solid #000000;
-            padding-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        .list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .list-item {
-            background-color: #fafafa;
-            border: 1px solid #cccccc;
-            margin: 15px 0;
-            padding: 20px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        .list-item:hover {
-            background-color: #f0f0f0;
-            transform: translateX(5px);
-        }
-        input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1em;
-            width: 100%;
-            box-sizing: border-box;
-            margin-bottom: 15px;
-        }
-        input:focus {
-            border-color: #000;
-            outline: none;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #000;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #333;
-        }
-        .footer {
-            background: linear-gradient(135deg, #000000 0%, #333333 100%);
-            color: #ffffff;
-            text-align: center;
-            padding: 20px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
-        }
-        .footer p {
-            margin: 0;
-            font-size: 1.1em;
-        }
-    </style>
-</head>
-<body>
-    <header class="header">
-        <h1>Clientes</h1>
-        <nav class="nav">
-            <a href="/">Dashboard</a>
-            <a href="/servicos/">Serviços</a>
-            <a href="/agendamentos/">Agendamentos</a>
-            <a href="{% url 'logout' %}">Logout</a>
-        </nav>
-    </header>
+{% extends 'base.html' %}
 
+{% block title %}Clientes - Barbearia Elegante{% endblock %}
+
+{% block content %}
+<div class="container">
     <div class="container">
-        {% if messages %}
-            <div class="section" style="background-color: #e0ffe0; border: 1px solid #00aa00; color: #006600;">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+    <!-- Título da página -->
+    <h1 class="page-title">Você está na página de Clientes</h1>
+    {% if messages %}
+        <div class="alert">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 
-        <!-- Formulário -->
-        <section class="section">
-            <h2><i class="fas fa-user-plus"></i> Cadastrar Novo Cliente</h2>
-            <form method="post">
-                {% csrf_token %}
-                <label for="id_nome"><strong>Nome:</strong></label>
-                {{ form.nome }}
+    <!-- Formulário -->
+    <section class="section">
+        <h2><i class="fas fa-user-plus"></i> Cadastrar Novo Cliente</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_nome"><strong>Nome:</strong></label>
+            {{ form.nome }}
 
-                <label for="id_email"><strong>Email:</strong></label>
-                {{ form.email }}
+            <label for="id_email"><strong>Email:</strong></label>
+            {{ form.email }}
 
-                <label for="id_telefone"><strong>Telefone:</strong></label>
-                {{ form.telefone }}
+            <label for="id_telefone"><strong>Telefone:</strong></label>
+            {{ form.telefone }}
 
-                <button type="submit"><i class="fas fa-save"></i> Salvar</button>
-            </form>
-        </section>
+            <button type="submit"><i class="fas fa-save"></i> Salvar</button>
+            <a href="{% url 'lista_clientes' %}">Cancelar</a>
+        </form>
+    </section>
 
-        <!-- Lista -->
-        <section class="section">
-            <h2><i class="fas fa-users"></i> Lista de Clientes</h2>
-            <ul class="list">
-                {% for cliente in clientes %}
-                    <li class="list-item">
-                        <strong>{{ cliente.nome }}</strong> - {{ cliente.telefone }} - {{ cliente.email }}
-
-                        <!-- Ações -->
-                        <div style="margin-left:auto;"> 
-                            <a href="{% url 'editar_cliente' cliente.id %}" style="margin-right:10px; color:rgb(0, 0, 0); text-decoration:none">
-                                <i class="fas fa-edit"></i> Editar
-                            </a>
-                            <a href="{% url 'excluir_cliente' cliente.id %}" style="margin-right:10px; color:red; text-decoration:none;">
-                                <i class="fas fa-trash"></i> Excluir
-                            </a>
-                        </div>
-                    </li>
-                {% empty %}
-                    <li class="list-item">Nenhum cliente cadastrado.</li>
-                {% endfor %}
-            </ul>
-        </section>
-    </div>
-
-    <footer class="footer">
-        <p>&copy; 2026 Barbearia Elegante. Todos os direitos reservados.</p>
-    </footer>
-</body>
-</html>
+    <!-- Lista -->
+    <section class="section">
+        <h2><i class="fas fa-users"></i> Lista de Clientes</h2>
+        <ul class="list">
+            {% for cliente in clientes %}
+                <li class="list-item">
+                    <strong>{{ cliente.nome }}</strong> - {{ cliente.telefone }} - {{ cliente.email }}
+                    <div style="margin-left:auto;"> 
+                        <a href="{% url 'editar_cliente' cliente.id %}" class="btn-edit">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a href="{% url 'excluir_cliente' cliente.id %}" class="btn-delete">
+                            <i class="fas fa-trash"></i> Excluir
+                        </a>
+                    </div>
+                </li>
+            {% empty %}
+                <li class="list-item">Nenhum cliente cadastrado.</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+{% endblock %}
