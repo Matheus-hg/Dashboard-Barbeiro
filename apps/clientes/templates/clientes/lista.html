@@ -168,6 +168,16 @@
                 {% for cliente in clientes %}
                     <li class="list-item">
                         <strong>{{ cliente.nome }}</strong> - {{ cliente.telefone }} - {{ cliente.email }}
+
+                        <!-- Ações -->
+                        <div style="margin-left:auto;"> 
+                            <a href="{% url 'editar_cliente' cliente.id %}" style="margin-right:10px; color:rgb(0, 0, 0); text-decoration:none">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <a href="{% url 'excluir_cliente' cliente.id %}" style="margin-right:10px; color:red; text-decoration:none;">
+                                <i class="fas fa-trash"></i> Excluir
+                            </a>
+                        </div>
                     </li>
                 {% empty %}
                     <li class="list-item">Nenhum cliente cadastrado.</li>
