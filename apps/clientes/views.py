@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
 from django.contrib import messages
@@ -25,6 +25,23 @@ def lista_clientes(request):
         'form': form,
     })
 
+def editar_cliente(request, id):
+    cliente = get_object_or_404(Cliente, id=id)
+    if request.method == 'POST':
+        form = ClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_clientes')
+        else:
+            form = ClienteForm(instance=cliente)
+        return render(request, 'cliente/editar.html', {'form': form})
+
+def excluir_cliente(request, id):
+    cliente = get_object_or_404(Cliente, id=id)
+    if request.method == 'POST':
+        cliente.delete()
+        return redirect('lista_clientes')
+    return render(request, 'clientes/confirmar_exclusao.html', {'cliente': cliente})
 
 class CustomLoginView(LoginView):
     template_name = 'login.html'
