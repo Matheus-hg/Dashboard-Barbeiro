@@ -1,25 +1,42 @@
 {% extends 'base.html' %}
 
-{% block title %}Serviços - Barbearia Elegante{% endblock %}
-
 {% block content %}
-<main class="main-content">
-    <div class="container">
-        <!-- Título da página -->
-        <h1 class="page-title">Você está na página de Serviços</h1>
+<div class="container">
+    <section class="section">
+        <h2><i class="fas fa-cut"></i> Lista de Serviços</h2>
 
-        <section class="section">
-            <h2><i class="fas fa-tools"></i> Lista de Serviços</h2>
-            <ul class="list">
+        {% if servicos %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Duração (min)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
                 {% for servico in servicos %}
-                    <li class="list-item servico">
-                        <strong>{{ servico.nome }}</strong> - R$ {{ servico.preco }} ({{ servico.duracao_minutos }} min)
-                    </li>
-                {% empty %}
-                    <li class="list-item servico">Nenhum serviço cadastrado.</li>
+                <tr>
+                    <td>{{ servico.nome }}</td>
+                    <td>{{ servico.descricao }}</td>
+                    <td>R$ {{ servico.preco }}</td>
+                    <td>{{ servico.duracao_minutos }}</td>
+                    <td>
+                        <a href="{% url 'servicos:editar_servico' servico.id %}" class="btn-edit">Editar</a>
+                        <a href="{% url 'servicos:excluir_servico' servico.id %}" class="btn-delete">Excluir</a>
+                    </td>
+                </tr>
                 {% endfor %}
-            </ul>
-        </section>
-    </div>
-</main>
+            </tbody>
+        </table>
+        {% else %}
+        <p>Nenhum serviço cadastrado.</p>
+        {% endif %}
+
+        <!-- Botão para criar novo serviço -->
+        <a href="{% url 'servicos:novo_servico' %}" class="btn-save">Novo Serviço</a>
+    </section>
+</div>
 {% endblock %}

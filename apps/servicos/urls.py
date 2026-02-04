@@ -1,7 +1,11 @@
 from django.urls import path
-from . import views
+from .views import lista_servicos, novo_servico, editar_servico, excluir_servico
+
+app_name = "servicos"
 
 urlpatterns = [
-    # Exemplo de rota: lista de serviços
-    path('', views.lista_servicos, name='lista_servicos'),
+    path('', lista_servicos, name='lista_servicos'),
+    path('novo/', novo_servico, name='novo_servico'),
+    path('editar/<int:servico_id>/', editar_servico, name='editar_servico'),
+    path('excluir/<int:servico_id>/', excluir_servico, name='excluir_servico'),
 ]
