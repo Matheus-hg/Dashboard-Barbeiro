@@ -4,7 +4,7 @@ from .views import (
     lista_clientes,
     editar_cliente,
     excluir_cliente,
-    custom_logout
+    custom_logout,
 )
 
 app_name = "clientes"

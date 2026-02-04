@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <section class="section">
+        <h2><i class="fas fa-calendar-plus"></i> Novo Agendamento</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class="btn-save">Salvar</button>
+            <a href="{% url 'agendamentos:lista_agendamentos' %}" class="btn-cancel">Cancelar</a>
+        </form>
+    </section>
+</div>
+{% endblock %}

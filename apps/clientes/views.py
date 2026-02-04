@@ -14,6 +14,17 @@ def custom_logout(request):
     return redirect('dashboard:home')
 
 @login_required
+def novo_cliente(request):
+    if request.method == 'POST':
+        form = ClienteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cliente:lista_clientes')
+        else:
+            form = ClienteForm()
+        return render(request, 'clientes/novo.html', {'form': form})
+
+@login_required
 def lista_clientes(request):
     if request.method == "POST":
         form = ClienteForm(request.POST)
@@ -21,7 +32,7 @@ def lista_clientes(request):
             form.save()
             return redirect("clientes:lista_clientes")
     else:
-        form = ClienteForm()  # <-- garante que no GET o form existe
+        form = ClienteForm()  
 
     clientes = Cliente.objects.all()
     return render(request, "clientes/lista.html", {
@@ -29,19 +40,19 @@ def lista_clientes(request):
         "clientes": clientes
     })
 
-
 @login_required
 def editar_cliente(request, cliente_id):
-    cliente = get_object_or_404(Cliente, id=cliente_id)
-
+    cliente = get_object_or_404(Cliente, id=cliente_id)  # busca o cliente pelo ID
     if request.method == "POST":
-        cliente.nome = request.POST.get("nome")
-        cliente.email = request.POST.get("email")
-        cliente.telefone = request.POST.get("telefone")
-        cliente.save()
-        return redirect("clientes:lista_clientes")
+        form = ClienteForm(request.POST, instance=cliente)  # ESSENCIAL: instance=cliente
+        if form.is_valid():
+            form.save()
+            return redirect("clientes:lista_clientes")
+    else:
+        form = ClienteForm(instance=cliente)  # formulário já preenchido
 
-    return render(request, "clientes/editar.html", {"cliente": cliente})
+    return render(request, "clientes/editar.html", {"form": form})
+
 
 
 @login_required
