@@ -3,57 +3,59 @@
 {% block title %}Clientes - Barbearia Elegante{% endblock %}
 
 {% block content %}
-<div class="container">
+<main class="main-content">
     <div class="container">
-    <!-- Título da página -->
-    <h1 class="page-title">Você está na página de Clientes</h1>
-    {% if messages %}
-        <div class="alert">
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        </div>
-    {% endif %}
+        <!-- Título da página -->
+        <h1 class="page-title">Você está na página de Clientes</h1>
 
-    <!-- Formulário -->
-    <section class="section">
-        <h2><i class="fas fa-user-plus"></i> Cadastrar Novo Cliente</h2>
-        <form method="post">
-            {% csrf_token %}
-            <label for="id_nome"><strong>Nome:</strong></label>
-            {{ form.nome }}
+        {% if messages %}
+            <div class="alert">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-            <label for="id_email"><strong>Email:</strong></label>
-            {{ form.email }}
+        <!-- Formulário -->
+        <section class="section">
+            <h2><i class="fas fa-user-plus"></i> Cadastrar Novo Cliente</h2>
+            <form method="post">
+                {% csrf_token %}
+                <label for="id_nome"><strong>Nome:</strong></label>
+                {{ form.nome }}
 
-            <label for="id_telefone"><strong>Telefone:</strong></label>
-            {{ form.telefone }}
+                <label for="id_email"><strong>Email:</strong></label>
+                {{ form.email }}
 
-            <button type="submit"><i class="fas fa-save"></i> Salvar</button>
-            <a href="{% url 'lista_clientes' %}">Cancelar</a>
-        </form>
-    </section>
+                <label for="id_telefone"><strong>Telefone:</strong></label>
+                {{ form.telefone }}
 
-    <!-- Lista -->
-    <section class="section">
-        <h2><i class="fas fa-users"></i> Lista de Clientes</h2>
-        <ul class="list">
-            {% for cliente in clientes %}
-                <li class="list-item">
-                    <strong>{{ cliente.nome }}</strong> - {{ cliente.telefone }} - {{ cliente.email }}
-                    <div style="margin-left:auto;"> 
-                        <a href="{% url 'editar_cliente' cliente.id %}" class="btn-edit">
-                            <i class="fas fa-edit"></i> Editar
-                        </a>
-                        <a href="{% url 'excluir_cliente' cliente.id %}" class="btn-delete">
-                            <i class="fas fa-trash"></i> Excluir
-                        </a>
-                    </div>
-                </li>
-            {% empty %}
-                <li class="list-item">Nenhum cliente cadastrado.</li>
-            {% endfor %}
-        </ul>
-    </section>
-</div>
+                <button type="submit"><i class="fas fa-save"></i> Salvar</button>
+                <a href="{% url 'lista_clientes' %}" class="btn-cancel">Cancelar</a>
+            </form>
+        </section>
+
+        <!-- Lista -->
+        <section class="section">
+            <h2><i class="fas fa-users"></i> Lista de Clientes</h2>
+            <ul class="list">
+                {% for cliente in clientes %}
+                    <li class="list-item">
+                        <strong>{{ cliente.nome }}</strong> - {{ cliente.telefone }} - {{ cliente.email }}
+                        <div style="margin-left:auto;"> 
+                            <a href="{% url 'editar_cliente' cliente.id %}" class="btn-edit">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <a href="{% url 'excluir_cliente' cliente.id %}" class="btn-delete">
+                                <i class="fas fa-trash"></i> Excluir
+                            </a>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li class="list-item">Nenhum cliente cadastrado.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</main>
 {% endblock %}

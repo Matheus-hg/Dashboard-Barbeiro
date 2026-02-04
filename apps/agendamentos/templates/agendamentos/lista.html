@@ -3,22 +3,25 @@
 {% block title %}Agendamentos - Barbearia Elegante{% endblock %}
 
 {% block content %}
-<div class="container">
-    <!-- Título da página -->
-    <h1 class="page-title">Você está na página de Agendamentos</h1>
-    <section class="section">
-        <h2><i class="fas fa-calendar-alt"></i> Lista de Agendamentos</h2>
-        <ul class="list">
-            {% for agendamento in agendamentos %}
-                <li class="list-item">
-                    <strong>{{ agendamento.cliente.nome }}</strong> - 
-                    {{ agendamento.data_hora|date:"d/m/Y H:i" }} - 
-                    {{ agendamento.servico.nome }}
-                </li>
-            {% empty %}
-                <li class="list-item">Nenhum agendamento encontrado.</li>
-            {% endfor %}
-        </ul>
-    </section>
-</div>
+<main class="main-content">
+    <div class="container">
+        <!-- Título da página -->
+        <h1 class="page-title">Você está na página de Agendamentos</h1>
+
+        <section class="section">
+            <h2><i class="fas fa-calendar-alt"></i> Lista de Agendamentos</h2>
+            <ul class="list">
+                {% for agendamento in agendamentos %}
+                    <li class="list-item agendamento">
+                        <strong>{{ agendamento.cliente.nome }}</strong> - 
+                        {{ agendamento.data_hora|date:"d/m/Y H:i" }} - 
+                        {{ agendamento.servico.nome }}
+                    </li>
+                {% empty %}
+                    <li class="list-item agendamento">Nenhum agendamento encontrado.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</main>
 {% endblock %}

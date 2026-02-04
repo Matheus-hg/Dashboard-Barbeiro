@@ -3,21 +3,23 @@
 {% block title %}Serviços - Barbearia Elegante{% endblock %}
 
 {% block content %}
-<div class="container">
-    <!-- Título da página -->
-    <h1 class="page-title">Você está na página de Serviços</h1>
+<main class="main-content">
+    <div class="container">
+        <!-- Título da página -->
+        <h1 class="page-title">Você está na página de Serviços</h1>
 
-    <section class="section">
-        <h2><i class="fas fa-tools"></i> Lista de Serviços</h2>
-        <ul class="list">
-            {% for servico in servicos %}
-                <li class="list-item">
-                    <strong>{{ servico.nome }}</strong> - R$ {{ servico.preco }} ({{ servico.duracao_minutos }} min)
-                </li>
-            {% empty %}
-                <li class="list-item">Nenhum serviço cadastrado.</li>
-            {% endfor %}
-        </ul>
-    </section>
-</div>
+        <section class="section">
+            <h2><i class="fas fa-tools"></i> Lista de Serviços</h2>
+            <ul class="list">
+                {% for servico in servicos %}
+                    <li class="list-item servico">
+                        <strong>{{ servico.nome }}</strong> - R$ {{ servico.preco }} ({{ servico.duracao_minutos }} min)
+                    </li>
+                {% empty %}
+                    <li class="list-item servico">Nenhum serviço cadastrado.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</main>
 {% endblock %}

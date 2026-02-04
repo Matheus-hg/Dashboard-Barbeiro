@@ -1,4 +1,6 @@
-/* Fonte e corpo */
+/* ============================
+   Fonte e corpo (global)
+============================ */
 body {
     font-family: 'Roboto', sans-serif;
     background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
@@ -9,14 +11,19 @@ body {
     overflow-x: hidden;
 }
 
-/* Cabeçalho */
+/* ============================
+   Cabeçalho fixo no topo
+============================ */
 .header {
     background: linear-gradient(135deg, #000000 0%, #333333 100%);
     color: #ffffff;
-    padding: 30px 20px;
+    padding: 20px;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    animation: fadeIn 1s ease-in;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 .header h1 {
@@ -27,7 +34,6 @@ body {
     text-transform: uppercase;
 }
 
-/* Navegação */
 .nav {
     margin-top: 15px;
     display: flex;
@@ -65,7 +71,14 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* Container e seções */
+/* ============================
+   Container e seções
+============================ */
+.main-content {
+    margin-top: 100px; /* altura do header */
+    padding: 20px;
+}
+
 .container {
     max-width: 1200px;
     margin: 40px auto;
@@ -101,7 +114,9 @@ body {
     margin-right: 15px;
 }
 
-/* Estatísticas */
+/* ============================
+   Estatísticas (cards)
+============================ */
 .stats-container {
     display: flex;
     justify-content: center;
@@ -160,7 +175,9 @@ body {
     margin: 0;
 }
 
-/* Listas */
+/* ============================
+   Listas
+============================ */
 .list {
     list-style-type: none;
     padding: 0;
@@ -184,18 +201,27 @@ body {
     transform: translateX(5px);
 }
 
-.list-item::before {
-    content: '\f0c4';
+/* Ícones diferentes por contexto */
+.list-item.agendamento::before {
+    content: '\f073'; /* calendário */
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     margin-right: 15px;
     color: #000000;
 }
 
-/* Formulários */
-form p {
-    margin-bottom: 15px;
+.list-item.servico::before {
+    content: '\f0ad'; /* ferramenta */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    margin-right: 15px;
+    color: #000000;
 }
+
+/* ============================
+   Formulários
+============================ */
+form p { margin-bottom: 15px; }
 
 form label {
     font-weight: bold;
@@ -236,7 +262,7 @@ button[type="submit"]:hover {
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-a[href*="cancelar"] {
+a[href*="cancelar"], .btn-cancel {
     color: #000000;
     text-decoration: none;
     padding: 12px 24px;
@@ -248,14 +274,41 @@ a[href*="cancelar"] {
     display: inline-block;
 }
 
-a[href*="cancelar"]:hover {
+a[href*="cancelar"]:hover, .btn-cancel:hover {
     background-color: #000000;
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* Alertas */
+/* Botões editar/excluir */
+.btn-edit {
+    margin-right: 10px;
+    color: #000000;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-edit:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+
+.btn-delete {
+    margin-right: 10px;
+    color: red;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-delete:hover {
+    color: darkred;
+    text-decoration: underline;
+}
+
+/* ============================
+   Alertas
+============================ */
 .alert {
     opacity: 0;
     transform: translateY(-10px);
@@ -280,13 +333,30 @@ a[href*="cancelar"]:hover {
     }
 }
 
-/* Rodapé */
+/* ============================
+   Layout global para rodapé fixo
+============================ */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;                   /* ocupa espaço entre header e footer */
+    margin-top: 100px;         /* já tinha no seu CSS, mantém */
+    padding: 20px;
+}
+
+/* ============================
+   Rodapé
+============================ */
 .footer {
     background: linear-gradient(135deg, #000000 0%, #333333 100%);
     color: #ffffff;
     text-align: center;
     padding: 20px;
-    margin-top: 40px;
+    margin-top: auto;          /* cola no fim da página */
     box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
     animation: fadeIn 2s ease-in;
 }
@@ -296,13 +366,18 @@ a[href*="cancelar"]:hover {
     font-size: 1.1em;
 }
 
-/* Animação */
+
+/* ============================
+   Animações
+============================ */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsividade */
+/* ============================
+   Responsividade (dashboard e páginas internas)
+============================ */
 @media (max-width: 768px) {
     .header h1 {
         font-size: 2.5em;
@@ -329,147 +404,10 @@ a[href*="cancelar"]:hover {
     }
 }
 
-/* Formulários dentro das sections */
-/* Pagina dos clientes*/
-.section form p {
-    margin-bottom: 15px;
-}
-
-.section form label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.section form input,
-.section form select,
-.section form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 8px;
-    font-size: 1em;
-    transition: border-color 0.3s;
-}
-
-.section form input:focus,
-.section form select:focus,
-.section form textarea:focus {
-    border-color: #000000;
-    outline: none;
-}
-
-.section button[type="submit"] {
-    background: linear-gradient(135deg, #000000 0%, #333333 100%);
-    color: #ffffff;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-right: 10px;
-}
-
-.section button[type="submit"]:hover {
-    background: linear-gradient(135deg, #333333 0%, #000000 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.section a[href*="lista_clientes"] {
-    color: #000000;
-    text-decoration: none;
-    padding: 12px 24px;
-    border: 2px solid #000000;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-.section a[href*="lista_clientes"]:hover {
-    background-color: #000000;
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-.btn-edit {
-    margin-right: 10px;
-    color: #000000;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.btn-edit:hover {
-    color: #333333;
-    text-decoration: underline;
-}
-
-.btn-delete {
-    margin-right: 10px;
-    color: red;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.btn-delete:hover {
-    color: darkred;
-    text-decoration: underline;
-}
-/* Lista de Agendamentos */
-.list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.list-item {
-    background-color: #fafafa;
-    border: 1px solid #cccccc;
-    margin: 15px 0;
-    padding: 20px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    animation: fadeIn 2s ease-in;
-}
-
-.list-item:hover {
-    background-color: #f0f0f0;
-    transform: translateX(5px);
-}
-
-.list-item::before {
-    content: '\f073'; /* Ícone de calendário */
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    margin-right: 15px;
-    color: #000000;
-}
-/* Título da página */
-.page-title {
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2em;
-    margin-bottom: 30px;
-    color: #333333;
-    animation: fadeIn 1.5s ease-in;
-}
-
-/* Lista de Serviços */
-.list-item::before {
-    content: '\f0ad'; /* Ícone de ferramenta */
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    margin-right: 15px;
-    color: #000000;
-}
-/* Tela de Login */
-body {
+/* ============================
+   Tela de Login
+============================ */
+.login-page {
     background: linear-gradient(135deg, #ffffff, #f8f9fa);
     min-height: 100vh;
     display: flex;
@@ -632,13 +570,7 @@ body {
     transform: translateY(-2px);
 }
 
-/* Animações */
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* Responsividade */
+/* Responsividade login */
 @media (max-width: 768px) {
     .login-wrapper {
         flex-direction: column;

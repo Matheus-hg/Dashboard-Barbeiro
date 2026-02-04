@@ -3,36 +3,38 @@
 {% block title %}Dashboard - Barbearia Elegante{% endblock %}
 
 {% block content %}
-<div class="container">
+<main class="main-content">
+    <div class="container">
 
-    <!-- Estatísticas lado a lado -->
-    <section class="stats-container">
-        <div class="stat-card">
-            <h3><i class="fas fa-cut"></i> Cabelos Cortados Hoje</h3>
-            <p>{{ cabelos_cortados_hoje|default:0 }}</p>
-        </div>
-        <div class="stat-card">
-            <h3><i class="fas fa-dollar-sign"></i> Receita Hoje</h3>
-            <p>R$ {{ receita_hoje|default:'0,00' }}</p>
-        </div>
-        <div class="stat-card">
-            <h3><i class="fas fa-users"></i> Clientes Hoje</h3>
-            <p>{{ clientes_hoje|default:0 }}</p>
-        </div>
-    </section>
+        <!-- Estatísticas lado a lado -->
+        <section class="stats-container">
+            <div class="stat-card">
+                <h3><i class="fas fa-cut"></i> Cabelos Cortados Hoje</h3>
+                <p>{{ cabelos_cortados_hoje|default:0 }}</p>
+            </div>
+            <div class="stat-card">
+                <h3><i class="fas fa-dollar-sign"></i> Receita Hoje</h3>
+                <p>R$ {{ receita_hoje|default:'0,00' }}</p>
+            </div>
+            <div class="stat-card">
+                <h3><i class="fas fa-users"></i> Clientes Hoje</h3>
+                <p>{{ clientes_hoje|default:0 }}</p>
+            </div>
+        </section>
 
-    <!-- Agendamentos -->
-    <section class="section" id="agendamentos">
-        <h2><i class="fas fa-calendar-alt"></i> Agendamentos do Dia</h2>
-        <ul class="list">
-            {% for agendamento in agendamentos_do_dia %}
-                <li class="list-item">
-                    <strong>{{ agendamento.cliente.nome }}</strong> - {{ agendamento.horario }} - {{ agendamento.servico.nome }}
-                </li>
-            {% empty %}
-                <li class="list-item">Nenhum agendamento para hoje.</li>
-            {% endfor %}
-        </ul>
-    </section>
-</div>
+        <!-- Agendamentos -->
+        <section class="section" id="agendamentos">
+            <h2><i class="fas fa-calendar-alt"></i> Agendamentos do Dia</h2>
+            <ul class="list">
+                {% for agendamento in agendamentos_do_dia %}
+                    <li class="list-item agendamento">
+                        <strong>{{ agendamento.cliente.nome }}</strong> - {{ agendamento.horario }} - {{ agendamento.servico.nome }}
+                    </li>
+                {% empty %}
+                    <li class="list-item agendamento">Nenhum agendamento para hoje.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</main>
 {% endblock %}
