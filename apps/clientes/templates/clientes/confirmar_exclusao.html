@@ -52,7 +52,7 @@
         <form method="post">
             {% csrf_token %}
             <button type="submit">Confirmar</button>
-            <a href="{% url 'lista_clientes' %}">Cancelar</a>
+            <a href="{% url 'clientes:lista_clientes' %}">Cancelar</a>
         </form>
     </section>
 </div>
