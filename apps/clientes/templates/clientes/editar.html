@@ -7,8 +7,8 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Salvar alterações</button>
-            <a href="{% url 'clientes:lista_clientes' %}">Cancelar</a>
+            <button type="submit" class="btn-save">Salvar alterações</button>
+            <a href="{% url 'clientes:lista_clientes' %}" class="btn-cancel">Cancelar</a>
         </form>
     </section>
 </div>
