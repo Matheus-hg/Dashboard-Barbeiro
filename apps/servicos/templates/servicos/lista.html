@@ -24,7 +24,7 @@
                     <td>R$ {{ servico.preco }}</td>
                     <td>{{ servico.duracao_minutos }}</td>
                     <td>
-                        <a href="{% url 'servicos:editar_servico' servico.id %}" class="btn-edit">Editar</a>
+                        <a href="{% url 'servicos:editar_servico' servico.id %}" class="btn-default">Editar</a>
                         <a href="{% url 'servicos:excluir_servico' servico.id %}" class="btn-delete">Excluir</a>
                     </td>
                 </tr>
