@@ -601,47 +601,93 @@ html, body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 /* ============================
-    Estilo geral para todas as tabelas 
+    Estilo das tabelas 
 ============================ */
-.tabela {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
+
+/* Nome do cliente */
+.tabela-servicos td.nome-cliente {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Verdana', sans-serif;
+    color: #000000;
 }
 
-/* Cabeçalho */
-.tabela thead {
-    background-color: #f4f4f4;
-}
-
-.tabela th {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 2px solid #ddd;
-}
-
-/* Linhas */
-.tabela td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-/* Alternar cor das linhas */
-.tabela tr:nth-child(even) {
-    background-color: #fafafa;
-}
-
-/* Mensagem quando não há registros */
-.sem-registro {
-    text-align: center;
+/* Serviço */
+.tabela-servicos td.servico {
+    font-size: 15px;
     font-style: italic;
-    color: #777;
+    color: #000000;
 }
 
-/* Coluna de ações */
-.tabela .acoes {
-    text-align: center;
-    vertical-align: middle;
+/* Data */
+.tabela-servicos td.data {
+    font-size: 14px;
+    color: #000000;
+}
+/* Espaçamento geral da tabela */
+.tabela-servicos td {
+    padding: 48px 40px;   /* aumenta o espaço interno (vertical e horizontal) */
+    line-height: 1.6;     /* aumenta a altura da linha */
+}
+
+/* Nome do serviço */
+.tabela-servicos td.nome-servico {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Verdana', sans-serif;
+    color: #000000;
+    padding-top: 18px;    /* mais espaço acima */
+    padding-bottom: 18px; /* mais espaço abaixo */
+}
+
+/* Descrição */
+.tabela-servicos td.descricao {
+    font-size: 14px;
+    font-style: italic;
+    color: #000000;
+}
+
+/* Preço */
+.tabela-servicos td.preco {
+    font-size: 15px;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* Duração */
+.tabela-servicos td.duracao {
+    font-size: 15px;
+    font-weight: bold;
+    color: #000000;
+    font-family: 'Courier New', monospace;
+}
+/* Espaçamento geral da tabela de agendamentos */
+.tabela-agendamentos td {
+    padding: 48px 40px;   /* aumenta o espaço interno (vertical e horizontal) */
+    line-height: 1.6;     /* aumenta a altura da linha */
+}
+
+/* Nome do cliente */
+.tabela-agendamentos td.nome-cliente {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Verdana', sans-serif;
+    color: #000000;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+/* Serviço */
+.tabela-agendamentos td.servico {
+    font-size: 15px;
+    font-style: bold;
+    color: #000000;
+}
+
+/* Data */
+.tabela-agendamentos td.data {
+    font-size: 15px;
+    font-weight: bold;
+    color: #000000; /* azul para destacar */
+    font-family: 'Courier New', monospace; /* fonte diferente */
 }
