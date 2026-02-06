@@ -5,38 +5,39 @@
     <section class="section">
         <h2><i class="fas fa-cut"></i> Lista de Serviços</h2>
 
-        {% if servicos %}
-        <table class="table">
+        <table class="tabela">
             <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Preço</th>
-                    <th>Duração (min)</th>
-                    <th>Ações</th>
+                    <th style="width: 25%;">Nome</th>
+                    <th style="width: 30%;">Descrição</th>
+                    <th style="width: 15%;">Preço</th>
+                    <th style="width: 15%;">Duração (min)</th>
+                    <th style="width: 15%;">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {% for servico in servicos %}
                 <tr>
                     <td>{{ servico.nome }}</td>
-                    <td>{{ servico.descricao }}</td>
+                    <td>{{ servico.descricao|default:"—" }}</td>
                     <td>R$ {{ servico.preco }}</td>
                     <td>{{ servico.duracao_minutos }}</td>
                     <td>
-                        <a href="{% url 'servicos:editar_servico' servico.id %}" class="btn-default">Editar</a>
+                        <a href="{% url 'servicos:editar_servico' servico.id %}" class="btn-default">Editar</a><br><br>
                         <a href="{% url 'servicos:excluir_servico' servico.id %}" class="btn-delete">Excluir</a>
                     </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">Nenhum serviço cadastrado.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        {% else %}
-        <p>Nenhum serviço cadastrado.</p>
-        {% endif %}
 
-        <!-- Botão para criar novo serviço -->
-        <a href="{% url 'servicos:novo_servico' %}" class="btn-save">Novo Serviço</a>
+        <div style="margin-top: 20px;">
+            <a href="{% url 'servicos:novo_servico' %}" class="btn-default">Novo Serviço</a>
+        </div>
     </section>
 </div>
 {% endblock %}

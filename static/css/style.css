@@ -600,3 +600,48 @@ html, body {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
+/* ============================
+    Estilo geral para todas as tabelas 
+============================ */
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* Cabeçalho */
+.tabela thead {
+    background-color: #f4f4f4;
+}
+
+.tabela th {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Linhas */
+.tabela td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Alternar cor das linhas */
+.tabela tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Mensagem quando não há registros */
+.sem-registro {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+}
+
+/* Coluna de ações */
+.tabela .acoes {
+    text-align: center;
+    vertical-align: middle;
+}
