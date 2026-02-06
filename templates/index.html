@@ -6,19 +6,35 @@
 <main class="main-content">
     <div class="container">
 
+        <!-- Filtro de data -->
+        <form method="get" style="margin-bottom: 20px;">
+            <label for="data">Escolher dia:</label>
+            <input type="date" id="data" name="data" value="{{ data|date:'Y-m-d' }}">
+            <button type="submit" class="btn-cancel">Filtrar</button>
+        </form>
+
+        <!-- Botões rápidos -->
+        <div class="quick-buttons" style="margin-bottom: 20px;">
+            <a href="?quick=hoje" class="btn-default">Hoje</a>
+            <a href="?quick=amanha" class="btn-default">Amanhã</a>
+            <a href="?quick=ontem" class="btn-default">Ontem</a>
+            <a href="?quick=semana" class="btn-default">Semana</a>
+            <a href="?quick=mes" class="btn-default">Mês</a>
+        </div>
+
         <!-- Estatísticas lado a lado -->
         <section class="stats-container">
             <div class="stat-card">
-                <h3><i class="fas fa-cut"></i> Cabelos Cortados Hoje</h3>
-                <p>{{ cabelos_cortados_hoje|default:0 }}</p>
+                <h3><i class="fas fa-cut"></i> Cabelos Cortados</h3>
+                <p>{{ cabelos_cortados|default:0 }}</p>
             </div>
             <div class="stat-card">
-                <h3><i class="fas fa-dollar-sign"></i> Receita Hoje</h3>
-                <p>R$ {{ receita_hoje|default:'0,00' }}</p>
+                <h3><i class="fas fa-dollar-sign"></i> Receita</h3>
+                <p>R$ {{ receita|default:'0,00' }}</p>
             </div>
             <div class="stat-card">
-                <h3><i class="fas fa-users"></i> Clientes Hoje</h3>
-                <p>{{ clientes_hoje|default:0 }}</p>
+                <h3><i class="fas fa-users"></i> Clientes</h3>
+                <p>{{ clientes|default:0 }}</p>
             </div>
         </section>
 
@@ -28,10 +44,10 @@
             <ul class="list">
                 {% for agendamento in agendamentos_do_dia %}
                     <li class="list-item agendamento">
-                        <strong>{{ agendamento.cliente.nome }}</strong> - {{ agendamento.horario }} - {{ agendamento.servico.nome }}
+                        <strong>{{ agendamento.cliente.nome }}</strong> - {{ agendamento.data_hora|date:"H:i" }} - {{ agendamento.servico.nome }}
                     </li>
                 {% empty %}
-                    <li class="list-item agendamento">Nenhum agendamento para hoje.</li>
+                    <li class="list-item agendamento">Nenhum agendamento para este dia.</li>
                 {% endfor %}
             </ul>
         </section>
