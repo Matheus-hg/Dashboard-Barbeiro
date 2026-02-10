@@ -16,17 +16,28 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Inicializa o django-environ
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / ".env")  # lê as variáveis do arquivo .env
+
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ynh^ndokt5l9lythzu&#fa_l8%_$!6f4+576gh3p7p@e771ywi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost"])
 
-ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS",
+    default=["http://127.0.0.1:8000", "http://localhost:8000"]
+)
 
 
 # Application definition
@@ -79,9 +90,9 @@ WSGI_APPLICATION = 'dashboard_barbeiro.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 
-# Inicializa o django-environ
-env = environ.Env()
-environ.Env.read_env()  # lê as variáveis do arquivo .env
+
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = env.bool("DEBUG", default=True)
 
 if env("DJANGO_ENV", default="development") == "production":
     DATABASES = {
