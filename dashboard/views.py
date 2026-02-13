@@ -10,16 +10,13 @@ from datetime import datetime, timedelta
 import json
 
 def get_agendamentos_por_dia(data):
-    """Retorna todos os agendamentos de um dia específico (com timezone)."""
-    inicio = timezone.make_aware(datetime.combine(data, datetime.min.time()))
-    fim = timezone.make_aware(datetime.combine(data, datetime.max.time()))
-    return Agendamento.objects.filter(data_hora__range=(inicio, fim))
+    """Retorna todos os agendamentos de um dia específico."""
+    return Agendamento.objects.filter(data_hora__date=data)
 
 def get_agendamentos_por_intervalo(inicio, fim):
     """Retorna todos os agendamentos dentro de um intervalo de datas."""
-    inicio = timezone.make_aware(datetime.combine(inicio, datetime.min.time()))
-    fim = timezone.make_aware(datetime.combine(fim, datetime.max.time()))
-    return Agendamento.objects.filter(data_hora__range=(inicio, fim))
+    return Agendamento.objects.filter(data_hora__date__range=(inicio, fim))
+
 
 def index(request):
     hoje = timezone.localdate()
@@ -83,7 +80,7 @@ def index(request):
     clientes = agendamentos.values("cliente").distinct().count()
 
     return render(request, "index.html", {
-        "agendamentos_do_dia": agendamentos,
+        "agendamentos": agendamentos,
         "cabelos_cortados": cabelos_cortados,
         "receita": receita,
         "clientes": clientes,
@@ -103,18 +100,21 @@ def custom_logout(request):
 @login_required
 def home(request):
     hoje = now().date()
-
-    clientes_hoje = Cliente.objects.filter(data_cadastro__date=hoje).count()
-    servicos_realizados = Agendamento.objects.filter(data_hora__date=hoje).count()
-    receita_hoje = sum(
-        ag.servico.preco for ag in Agendamento.objects.filter(data_hora__date=hoje)
-    )
     agendamentos = Agendamento.objects.filter(data_hora__date=hoje).order_by("data_hora")
 
+    cabelos_cortados = agendamentos.count()
+    receita = sum([ag.servico.preco for ag in agendamentos])
+    clientes = agendamentos.values("cliente").distinct().count()
+
     context = {
-        "clientes_hoje": clientes_hoje,
-        "servicos_realizados": servicos_realizados,
-        "receita_hoje": receita_hoje,
         "agendamentos": agendamentos,
+        "cabelos_cortados": cabelos_cortados,
+        "receita": receita,
+        "clientes": clientes,
+        "data": hoje,
+        "dias": "[]",
+        "receitas": "[]",
+        "cortes": "[]",
     }
     return render(request, "index.html", context)
+

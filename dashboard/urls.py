@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import home
+from . import views
 
 app_name = "dashboard"
 
 urlpatterns = [
-    path('', home, name='home'),
+    path("", views.index, name="home"),   # <-- usa index como rota principal
+    path("logout/", views.custom_logout, name="logout"),
 ]

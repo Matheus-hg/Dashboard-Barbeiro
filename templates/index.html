@@ -25,7 +25,7 @@
         <!-- Estatísticas lado a lado -->
         <section class="stats-container">
             <div class="stat-card">
-                <h3><i class="fas fa-cut"></i> Cabelos Cortados</h3>
+                <h3><i class="fas fa-cut"></i> Serviços </h3>
                 <p>{{ cabelos_cortados|default:0 }}</p>
             </div>
             <div class="stat-card">
@@ -42,9 +42,9 @@
         <section class="section" id="agendamentos">
             <h2><i class="fas fa-calendar-alt"></i> Agendamentos do Dia</h2>
             <ul class="list">
-                {% for agendamento in agendamentos_do_dia %}
+                {% for agendamento in agendamentos %}
                     <li class="list-item agendamento">
-                        <strong>{{ agendamento.cliente.nome }}</strong> - {{ agendamento.data_hora|date:"H:i" }} - {{ agendamento.servico.nome }}
+                        <strong>{{ agendamento.cliente }}</strong> - {{ agendamento.data_hora|date:"H:i" }} - {{ agendamento.servico }}
                     </li>
                 {% empty %}
                     <li class="list-item agendamento">Nenhum agendamento para este dia.</li>
