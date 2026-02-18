@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <section class="section">
+        <h2><i class="fas fa-edit"></i> Editar Agendamento</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Formulário do agendamento -->
+            {{ form.as_p }}
+
+            <!-- Produtos já adicionados -->
+            <h3>Produtos comprados</h3>
+            <ul>
+                {% for pa in agendamento.produtos.all %}
+                    <li>{{ pa.produto.nome }} - Quantidade: {{ pa.quantidade }}</li>
+                {% empty %}
+                    <li>Nenhum produto adicionado.</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Formulário para adicionar novo produto -->
+            <h3>Adicionar Produto</h3>
+            {{ produto_form.as_p }}
+
+            <button type="submit" class="btn-save">Salvar Alterações</button>
+            <a href="{% url 'agendamentos:lista_agendamentos' %}" class="btn-cancel">Cancelar</a>
+        </form>
+    </section>
+</div>
+{% endblock %}

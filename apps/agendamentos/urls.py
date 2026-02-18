@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import lista_agendamentos, novo_agendamento, editar_agendamento, excluir_agendamento
+from . import views
 
 app_name = "agendamentos"
 

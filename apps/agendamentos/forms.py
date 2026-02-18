@@ -1,5 +1,6 @@
 from django import forms
 from .models import Agendamento
+from .models import ProdutoAgendamento
 
 class AgendamentoForm(forms.ModelForm):
     class Meta:
@@ -8,3 +9,8 @@ class AgendamentoForm(forms.ModelForm):
         widgets = {
             'data_hora': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
+
+class ProdutoAgendamentoForm(forms.ModelForm):
+    class Meta:
+        model = ProdutoAgendamento
+        fields = ["produto", "quantidade"]

@@ -1,14 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
-from apps.clientes.models import Cliente
-from apps.agendamentos.models import Agendamento
-from django.contrib.auth import logout
-from django.shortcuts import redirect
 from django.utils import timezone
 from datetime import datetime, timedelta
+from django.contrib.auth import logout
+from apps.clientes.models import Cliente
+from apps.agendamentos.models import Agendamento
 from apps.produtos.models import Produto
-from apps.produtos.forms import ProdutoForm
 import json
 
 def get_agendamentos_por_dia(data):
@@ -24,7 +22,7 @@ def index(request):
     data_str = request.GET.get("data")
     quick = request.GET.get("quick")
 
-    dias, receitas, cortes = [], [], []
+    dias, cortes = [], []
 
     # --- Seleção de período ---
     if quick == "hoje":
@@ -45,6 +43,14 @@ def index(request):
         agendamentos = get_agendamentos_por_intervalo(inicio_semana, fim_semana)
         data = f"{inicio_semana.strftime('%d/%m')} - {fim_semana.strftime('%d/%m')}"
 
+        # preparar dados para o gráfico
+        dia_atual = inicio_semana
+        while dia_atual <= fim_semana:
+            ag_dia = get_agendamentos_por_dia(dia_atual)
+            dias.append(dia_atual.strftime("%d/%m"))
+            cortes.append(ag_dia.count())
+            dia_atual += timedelta(days=1)
+
     elif quick == "mes":
         inicio_mes = hoje.replace(day=1)
         if inicio_mes.month == 12:
@@ -61,7 +67,6 @@ def index(request):
         while dia_atual <= fim_mes:
             ag_dia = get_agendamentos_por_dia(dia_atual)
             dias.append(dia_atual.strftime("%d/%m"))
-            receitas.append(sum([ag.servico.preco for ag in ag_dia]))
             cortes.append(ag_dia.count())
             dia_atual += timedelta(days=1)
 
@@ -78,7 +83,7 @@ def index(request):
 
     # --- Estatísticas ---
     cabelos_cortados = agendamentos.count()
-    receita = sum([ag.servico.preco for ag in agendamentos])
+    receita = sum([ag.receita_total for ag in agendamentos])  # agora usa serviço + produtos
     clientes = agendamentos.values("cliente").distinct().count()
 
     # --- Produtos ---
@@ -92,13 +97,11 @@ def index(request):
         "clientes": clientes,
         "data": data,
         "dias": json.dumps(dias),
-        "receitas": json.dumps(receitas),
         "cortes": json.dumps(cortes),
         "produtos": produtos,
     }
 
     return render(request, "index.html", contexto)
-
 
 
 def custom_logout(request):
@@ -112,7 +115,7 @@ def home(request):
     agendamentos = Agendamento.objects.filter(data_hora__date=hoje).order_by("data_hora")
 
     cabelos_cortados = agendamentos.count()
-    receita = sum([ag.servico.preco for ag in agendamentos])
+    receita = float(sum([ag.servico.preco for ag in agendamentos]))  # conversão para float
     clientes = agendamentos.values("cliente").distinct().count()
 
     context = {
@@ -126,4 +129,3 @@ def home(request):
         "cortes": "[]",
     }
     return render(request, "index.html", context)
-
