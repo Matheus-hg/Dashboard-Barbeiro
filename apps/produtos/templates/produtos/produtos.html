@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Registrar Produto</h2>
+
+<!-- Formulário de cadastro -->
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-default">Salvar</button>
+</form>
+
+<!-- Lista de produtos -->
+<h3>Lista de Produtos</h3>
+<ul class="list">
+    {% for produto in produtos %}
+        <li>
+            <strong>{{ produto.nome }}</strong> - R$ {{ produto.preco }}
+            {% if produto.foto %}
+                <br>
+                <img src="{{ produto.foto.url }}" alt="{{ produto.nome }}" width="100">
+            {% endif %}
+            <p>{{ produto.descricao }}</p>
+
+            <a href="{% url 'editar_produto' produto.pk %}" class="btn-default">Editar</a>
+            <a href="{% url 'excluir_produto' produto.pk %}" class="btn-cancel">Excluir</a>
+        </li>
+    {% empty %}
+        <li>Nenhum produto cadastrado.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

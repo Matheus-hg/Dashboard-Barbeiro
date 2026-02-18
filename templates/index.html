@@ -52,5 +52,26 @@
             </ul>
         </section>
     </div>
+    <!-- Produtos -->
+    <section class="section" id="produtos">
+        <h2><i class="fas fa-box"></i> Produtos</h2>
+
+    <!-- Lista de produtos -->
+    <ul class="list">
+        {% for produto in produtos %}
+            <li>
+                <strong>{{ produto.nome }}</strong> - R$ {{ produto.preco }}
+                {% if produto.foto %}
+                    <br>
+                    <img src="{{ produto.foto.url }}" alt="{{ produto.nome }}" width="100">
+                {% endif %}
+                <p>{{ produto.descricao }}</p>
+            </li>
+        {% empty %}
+            <li>Nenhum produto cadastrado.</li>
+        {% endfor %}
+    </ul>
+</section>
+
 </main>
 {% endblock %}

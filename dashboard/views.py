@@ -7,6 +7,8 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.utils import timezone
 from datetime import datetime, timedelta
+from apps.produtos.models import Produto
+from apps.produtos.forms import ProdutoForm
 import json
 
 def get_agendamentos_por_dia(data):
@@ -17,7 +19,6 @@ def get_agendamentos_por_intervalo(inicio, fim):
     """Retorna todos os agendamentos dentro de um intervalo de datas."""
     return Agendamento.objects.filter(data_hora__date__range=(inicio, fim))
 
-
 def index(request):
     hoje = timezone.localdate()
     data_str = request.GET.get("data")
@@ -25,6 +26,7 @@ def index(request):
 
     dias, receitas, cortes = [], [], []
 
+    # --- Seleção de período ---
     if quick == "hoje":
         data = hoje
         agendamentos = get_agendamentos_por_dia(data)
@@ -74,12 +76,16 @@ def index(request):
         data = hoje
         agendamentos = get_agendamentos_por_dia(data)
 
-    # --- ESTATÍSTICAS ---
+    # --- Estatísticas ---
     cabelos_cortados = agendamentos.count()
     receita = sum([ag.servico.preco for ag in agendamentos])
     clientes = agendamentos.values("cliente").distinct().count()
 
-    return render(request, "index.html", {
+    # --- Produtos ---
+    produtos = Produto.objects.all()
+
+    # --- Contexto ---
+    contexto = {
         "agendamentos": agendamentos,
         "cabelos_cortados": cabelos_cortados,
         "receita": receita,
@@ -88,7 +94,10 @@ def index(request):
         "dias": json.dumps(dias),
         "receitas": json.dumps(receitas),
         "cortes": json.dumps(cortes),
-    })
+        "produtos": produtos,
+    }
+
+    return render(request, "index.html", contexto)
 
 
 

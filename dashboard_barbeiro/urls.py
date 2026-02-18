@@ -8,6 +8,9 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 from django.contrib import admin
 from django.urls import path, include
 from apps.clientes.views import custom_logout
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('', include('dashboard.urls')),  # página inicial -> index.html
@@ -16,4 +19,7 @@ urlpatterns = [
     path('agendamentos/', include('apps.agendamentos.urls')),  # rotas do app agendamentos
     path('logout/', custom_logout, name='logout'),  # logout centralizado
     path('admin/', admin.site.urls),
+    path('produtos/', include('apps.produtos.urls'))
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
